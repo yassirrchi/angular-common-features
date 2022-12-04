@@ -1,0 +1,38 @@
+ <ng-template #errors>
+    <div class="text-danger">
+{{errorMessage}}
+
+    </div>
+    
+ </ng-template>
+ <div class="container">
+    <div class="card" *ngIf="products; else errors">
+        <div class="card-header">Products List</div>
+        <div class="card-body">
+            <app-search-box (searchEvent)="searchProduct($event)"></app-search-box>
+            <table class="table">
+                <thead>
+                    <tr><th>ID</th><th>Name</th><th>Price</th><th>promo</th></tr>
+                </thead>
+                <tbody>
+                     
+                    <tr *ngFor="let product of products">
+                        <td>{{product.id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.price}}</td>
+                        <td><button (click)="togglePromo(product.id)"><i class="bi bi-p-circle-fill btn btn-success text-light" *ngIf="product.promotion"></i><i class="bi bi-p-circle btn-danger btn  text-light" *ngIf="!product.promotion"></i></button></td>
+                        <td><button class="btn btn-danger" (click)="deleteProduct(product.id)"><i class="bi bi-trash "></i></button></td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <ul class="nav nav-pills">
+                <li *ngFor="let item of [].constructor(this.totalPages);let i=index">
+                    <a (click)="gotoPage(i)" class="btn" [ngClass]="i==currentPage?'btn-info':'btn-info-outline'">{{i}}</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+ </div>
